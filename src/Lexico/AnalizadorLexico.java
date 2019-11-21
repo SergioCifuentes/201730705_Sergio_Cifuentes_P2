@@ -24,7 +24,7 @@ public class AnalizadorLexico {
     String expresionLetra = "//^[a-z]|^[A-Z]*/";
     Pattern pat = Pattern.compile("[a-z]|[A-Z]");
     Pattern pat2 = Pattern.compile("[0-9]");
-    Pattern pat3 = Pattern.compile("[+|-|*|%|=|>|<|(|)|{|}|;|(|)|{|}]");
+    Pattern pat3 = Pattern.compile("[+|-|*|%|=|>|<|(|)|{|}|;|(|)|{|}|,]");
 
     Pattern palabrasReservadas = Pattern.compile("[variable|entero|mientras|hacer|si|sino|decimal|boolean|cadena|funcion]");
     Pattern booleanos = Pattern.compile("[VERDADERO|FALSO]");
@@ -223,13 +223,13 @@ public class AnalizadorLexico {
                 return Token.TIPO_NUMERO_ENTERO;
             case 3:
                 for (int i = 0; i < AGRUPACION.length; i++) {
-                    if (AGRUPACION[i]==caracter) {
+                    if (AGRUPACION[i].equals(caracter)) {
                         return Token.TIPO_AGRUPACION;
                     }
                     
                 }
                 for (int i = 0; i < SIGNO.length; i++) {
-                    if (SIGNO[i]==caracter) {
+                    if (SIGNO[i].equals(caracter)) {
                         return Token.TIPO_AGRUPACION;
                     }
                     
