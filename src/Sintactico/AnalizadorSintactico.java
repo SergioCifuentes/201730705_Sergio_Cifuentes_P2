@@ -5,10 +5,19 @@
  */
 package Sintactico;
 
+import Lexico.Token;
+import java.util.ArrayList;
+
 /**
  *
  * @author sergio
  */
 public class AnalizadorSintactico {
+    
+    public ArrayList<String> analizar(ArrayList<Token> tokens){
+        ArrayList<String> lineas=null;
+        return lineas;
+    }
+    
     
 }

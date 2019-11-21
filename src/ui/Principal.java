@@ -7,6 +7,7 @@ package ui;
 
 import Lexico.AnalizadorLexico;
 import Lexico.Token;
+import Sintactico.AnalizadorSintactico;
 import analizador2.pkg0.CargarArchivo;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import javax.swing.text.BadLocationException;
  * @author sergio
  */
 public class Principal extends javax.swing.JFrame {
-
+ArrayList<Token> tokens ;
     /**
      * Creates new form Principal
      */
@@ -73,6 +74,11 @@ public class Principal extends javax.swing.JFrame {
 
         btnSintactico.setText("Sintáctica");
         btnSintactico.setEnabled(false);
+        btnSintactico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSintacticoActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Codigo");
 
@@ -140,7 +146,7 @@ public class Principal extends javax.swing.JFrame {
         String[] lineas;
         lineas = txtentrada.getText().split("\n");
         AnalizadorLexico analizadorLexico = new AnalizadorLexico();
-        ArrayList<Token> tokens = new ArrayList<>();
+        tokens = new ArrayList<>();
         for (int i = 0; i < lineas.length; i++) {
             ArrayList<Token> aux
                     = analizadorLexico.obtenerToken(lineas[i]);
@@ -172,6 +178,11 @@ public class Principal extends javax.swing.JFrame {
             System.out.println("No Cargo Archivos");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnSintacticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSintacticoActionPerformed
+        AnalizadorSintactico an = new AnalizadorSintactico();
+        an.analizar(tokens);
+    }//GEN-LAST:event_btnSintacticoActionPerformed
 
     /**
      * @param args the command line arguments

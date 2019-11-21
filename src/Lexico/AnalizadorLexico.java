@@ -16,9 +16,13 @@ import java.util.regex.Pattern;
 public class AnalizadorLexico {
 
     public static int[][] transicion;
-
+    public static final String[] BOOLEAN = {"VERDADERO", "FALSO"};
+    public static final String[] RESVADA = {"funcion", "principal", "retornar", "vacio", "variable", "entero", "decimal", "booleano", "cadena", "cadena", "carácter", "si","sino", "mientras", "para", "hacer", "imprimir"};
+    public static final String[] AGRUPACION = {"(",")","{","}"};
+    public static final String[] SIGNO = {";"};
+    
     String expresionLetra = "//^[a-z]|^[A-Z]*/";
-    Pattern pat = Pattern.compile("[a-z]");
+    Pattern pat = Pattern.compile("[a-z]|[A-Z]");
     Pattern pat2 = Pattern.compile("[0-9]");
     Pattern pat3 = Pattern.compile("[+|-|*|%|=|>|<|(|)|{|}|;|(|)|{|}]");
 
@@ -200,25 +204,37 @@ public class AnalizadorLexico {
         int es = 0;
         switch (estado) {
             case 1:
-                System.out.println(caracter);
-                if (palabrasReservadas.matcher(caracter).matches()) {
-                    return 1;
+                System.out.println(caracter + "wwwww");
+                for (int i = 0; i < RESVADA.length; i++) {
+                    if (RESVADA[i].equals(caracter)) {
+                        return 1;
+                    }
+                    
                 }
-
-                if (booleanos.matcher(caracter).matches()) {
-                    return 2;
-                } else {
+                for (int i = 0; i < BOOLEAN.length; i++) {
+                    if (BOOLEAN[i].equals(caracter)) {
+                        return 2;
+                    }
+                }                 
+                
                     return 8;
-                }
+                
             case 2:
                 return Token.TIPO_NUMERO_ENTERO;
             case 3:
-                if (agrupacion.matcher(caracter).matches()) {
-                    return Token.TIPO_AGRUPACION;
+                for (int i = 0; i < AGRUPACION.length; i++) {
+                    if (AGRUPACION[i]==caracter) {
+                        return Token.TIPO_AGRUPACION;
+                    }
+                    
                 }
-                if(signo.matcher(caracter).matches()){
-                    return Token.TIPO_SIGNO;
+                for (int i = 0; i < SIGNO.length; i++) {
+                    if (SIGNO[i]==caracter) {
+                        return Token.TIPO_AGRUPACION;
+                    }
+                    
                 }
+                
                 return Token.TIPO_OPERADOR;
 
             case 4:
